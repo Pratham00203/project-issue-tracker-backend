@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -97,7 +98,7 @@ router.post("/check-email/registration", async (req, res) => {
           from: process.env.EMAIL_USER,
           to: email,
           subject: "Registration Link",
-          text: `Please click on the link below to register yourself. (Expires in 5 mins) \nLink : http://localhost:3000/register/${token}`,
+          text: `Please click on the link below to register yourself. (Expires in 5 mins) \nLink : ${FRONTEND_URL}register/${token}`,
         });
       }
     );
@@ -137,7 +138,7 @@ router.post("/check-email/forgot-password", async (req, res) => {
           from: process.env.EMAIL_USER,
           to: email,
           subject: "Change Password",
-          text: `Please click on the link below to change your password. (Expires in 5 mins)\nLink : http://localhost:3000/change-password/${email}/${token}`,
+          text: `Please click on the link below to change your password. (Expires in 5 mins)\nLink : ${FRONTEND_URL}change-password/${email}/${token}`,
         });
       }
     );
